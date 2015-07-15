@@ -13,6 +13,12 @@ cask 'intellij-idea-eap' do
 
   uninstall delete: '/usr/local/bin/idea'
 
+  postflight do
+    open("#{staged_path}/IntelliJ IDEA 16 EAP.app/Contents/bin/idea.properties", 'a') do |file|
+      file.puts 'idea.case.sensitive.fs=true'
+    end
+  end
+
   zap delete: [
                 "~/Library/Caches/IntelliJIdea#{version.major_minor}",
                 "~/Library/Logs/IntelliJIdea#{version.major_minor}",
