@@ -17,6 +17,8 @@ cask 'intellij-idea-eap' do
     open("#{staged_path}/IntelliJ IDEA 16 EAP.app/Contents/bin/idea.properties", 'a') do |file|
       file.puts 'idea.case.sensitive.fs=true'
     end
+
+    system '/usr/bin/sed', '-i', '.bak', 's/-Xmx.*/-Xmx2048m/', "#{staged_path}/IntelliJ IDEA 16 EAP.app/Contents/bin/idea.vmoptions"
   end
 
   zap delete: [
