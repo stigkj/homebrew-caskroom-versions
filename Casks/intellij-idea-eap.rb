@@ -7,18 +7,18 @@ cask 'intellij-idea-eap' do
   homepage 'https://confluence.jetbrains.com/display/IDEADEV/IDEA+2016.2+EAP'
   license :commercial
 
+  full_name = 'IntelliJ IDEA 2016.2 EAP.app'
+
+  app full_name
   auto_updates true
-
-  app 'IntelliJ IDEA.app'
-
   uninstall delete: '/usr/local/bin/idea'
 
   postflight do
-    open("#{staged_path}/IntelliJ IDEA 16 EAP.app/Contents/bin/idea.properties", 'a') do |file|
+    open("#{staged_path}/#{full_name}/Contents/bin/idea.properties", 'a') do |file|
       file.puts 'idea.case.sensitive.fs=true'
     end
 
-    system '/usr/bin/sed', '-i', '.bak', 's/-Xmx.*/-Xmx2048m/', "#{staged_path}/IntelliJ IDEA 16 EAP.app/Contents/bin/idea.vmoptions"
+    system '/usr/bin/sed', '-i', '.bak', 's/-Xmx.*/-Xmx2048m/', "#{staged_path}/#{full_name}/Contents/bin/idea.vmoptions"
   end
 
   zap delete: [
